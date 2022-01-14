@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <h1>User</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ user.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ user.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Vos restaurant</th>
+                <td>
+                    <ul>
+                    {% for restaurant in user.listeRestaurant %}
+                        <li>{{ restaurant.nom }}
+                        <a href="{{ path('restaurant_show', {'id': restaurant.id}) }}">Voir le restaurant</a></li>
+                    </ul>
+                    {% endfor %}
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('profile_edit', {'id': user.id}) }}">edit</a>
+
+    {{ include('profile/_delete_form.html.twig') }}
+{% endblock %}
